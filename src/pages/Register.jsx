@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 // === CONFIG ===
-const GITHUB_TOKEN = "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"; // classic token dengan scope repo/public_repo
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN; // ambil dari env
 const REPO_OWNER = "aanzapi";
 const REPO_NAME = "db";
 const FILE_PATH = "users.json";
@@ -23,9 +23,10 @@ function Register() {
     const newUser = { id: Date.now(), name, email, password };
 
     try {
-      // 1️⃣ Ambil file users.json terbaru untuk dapat SHA
+      // 1️⃣ Ambil file users.json terbaru untuk SHA
       const res = await fetch(
-        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`
+        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+        { headers: { Authorization: `token ${GITHUB_TOKEN}` } }
       );
       const data = await res.json();
       const sha = data.sha;
@@ -62,6 +63,7 @@ function Register() {
       );
 
       const putData = await putRes.json();
+      console.log(putData); // cek response
       if (putData.content) {
         alert("Registrasi berhasil!");
         navigate("/login");
@@ -82,10 +84,10 @@ function Register() {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-96">
         <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
-        <input type="text" placeholder="Nama" className="w-full border rounded-xl px-4 py-2 mb-4" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="email" placeholder="Email" className="w-full border rounded-xl px-4 py-2 mb-4" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" className="w-full border rounded-xl px-4 py-2 mb-4" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <input type="password" placeholder="Ulangi Password" className="w-full border rounded-xl px-4 py-2 mb-4" value={repeatPw} onChange={(e) => setRepeatPw(e.target.value)} />
+        <input type="text" placeholder="Nama" className="w-full border rounded-xl px-4 py-2 mb-4" value={name} onChange={e => setName(e.target.value)} />
+        <input type="email" placeholder="Email" className="w-full border rounded-xl px-4 py-2 mb-4" value={email} onChange={e => setEmail(e.target.value)} />
+        <input type="password" placeholder="Password" className="w-full border rounded-xl px-4 py-2 mb-4" value={password} onChange={e => setPassword(e.target.value)} />
+        <input type="password" placeholder="Ulangi Password" className="w-full border rounded-xl px-4 py-2 mb-4" value={repeatPw} onChange={e => setRepeatPw(e.target.value)} />
         <button onClick={handleRegister} className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl" disabled={loading}>
           {loading ? "Menyimpan..." : "Register"}
         </button>

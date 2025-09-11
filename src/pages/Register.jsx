@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-const GITHUB_TOKEN = "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";
+// === CONFIG ===
+const GITHUB_TOKEN = "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"; // classic token dengan scope repo/public_repo
 const REPO_OWNER = "aanzapi";
 const REPO_NAME = "db";
 const FILE_PATH = "users.json";
@@ -11,51 +12,69 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPw, setRepeatPw] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  async function saveUserToGitHub(newUser) {
-    // 1. Ambil current users
-    const res = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`
-    );
-    const data = await res.json();
-    const sha = data.sha;
-    const content = JSON.parse(atob(data.content));
-
-    // 2. Tambah user baru
-    content.push(newUser);
-
-    // 3. Update file di GitHub
-    await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `token ${GITHUB_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: `Add new user ${newUser.email}`,
-          content: btoa(JSON.stringify(content, null, 2)),
-          sha: sha,
-        }),
-      }
-    );
-  }
 
   const handleRegister = async () => {
     if (!name || !email || !password) { alert("Semua field wajib diisi!"); return; }
     if (password !== repeatPw) { alert("Password tidak sama!"); return; }
 
+    setLoading(true);
     const newUser = { id: Date.now(), name, email, password };
 
     try {
-      await saveUserToGitHub(newUser);
-      alert("Registrasi berhasil!");
-      navigate("/login");
+      // 1️⃣ Ambil file users.json terbaru untuk dapat SHA
+      const res = await fetch(
+        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`
+      );
+      const data = await res.json();
+      const sha = data.sha;
+      const content = JSON.parse(atob(data.content));
+
+      // 2️⃣ Cek email sudah ada
+      if (content.find(u => u.email === email)) {
+        alert("Email sudah terdaftar!");
+        setLoading(false);
+        return;
+      }
+
+      // 3️⃣ Tambah user baru
+      content.push(newUser);
+
+      // 4️⃣ Encode ke Base64
+      const encodedContent = btoa(JSON.stringify(content, null, 2));
+
+      // 5️⃣ Push ke GitHub
+      const putRes = await fetch(
+        `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `token ${GITHUB_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: `Add new user ${email}`,
+            content: encodedContent,
+            sha: sha,
+          }),
+        }
+      );
+
+      const putData = await putRes.json();
+      if (putData.content) {
+        alert("Registrasi berhasil!");
+        navigate("/login");
+      } else {
+        console.error(putData);
+        alert("Gagal menyimpan data ke GitHub!");
+      }
+
     } catch (err) {
       console.error(err);
-      alert("Gagal menyimpan data ke GitHub!");
+      alert("Terjadi error saat menghubungi GitHub!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,7 +86,9 @@ function Register() {
         <input type="email" placeholder="Email" className="w-full border rounded-xl px-4 py-2 mb-4" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="Password" className="w-full border rounded-xl px-4 py-2 mb-4" value={password} onChange={(e) => setPassword(e.target.value)} />
         <input type="password" placeholder="Ulangi Password" className="w-full border rounded-xl px-4 py-2 mb-4" value={repeatPw} onChange={(e) => setRepeatPw(e.target.value)} />
-        <button onClick={handleRegister} className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl">Register</button>
+        <button onClick={handleRegister} className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl" disabled={loading}>
+          {loading ? "Menyimpan..." : "Register"}
+        </button>
         <p className="text-center mt-4 text-sm">Sudah punya akun? <Link to="/login" className="text-blue-500">Login</Link></p>
       </div>
     </div>

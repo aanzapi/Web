@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 // === CONFIG ===
-const GITHUB_TOKEN = "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"; // classic token dengan scope repo/public_repo
+const GITHUB_TOKEN = "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"; // classic token dengan scope repo/public_repo
 const REPO_OWNER = "aanzapi";
 const REPO_NAME = "db";
 const FILE_PATH = "users.json";

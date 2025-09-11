@@ -47,11 +47,8 @@ function Login() {
           Login
         </button>
         <p className="text-center mt-4 text-sm">
-          Belum punya akun?{" "}
-          <a href="/register" className="text-blue-500">
-            Daftar
-          </a>
-        </p>
+  Belum punya akun? <Link to="/register" className="text-blue-500">Daftar</Link>
+</p>
       </div>
     </div>
   );

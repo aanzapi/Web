@@ -71,12 +71,9 @@ function Register() {
         >
           Register
         </button>
-        <p className="text-center mt-4 text-sm">
-          Sudah punya akun?{" "}
-          <a href="/login" className="text-blue-500">
-            Login
-          </a>
-        </p>
+<p className="text-center mt-4 text-sm">
+  Sudah punya akun? <Link to="/login" className="text-blue-500">Login</Link>
+</p>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -71,9 +71,9 @@ function Register() {
         >
           Register
         </button>
-<p className="text-center mt-4 text-sm">
-  Sudah punya akun? <Link to="/login" className="text-blue-500">Login</Link>
-</p>
+        <p className="text-center mt-4 text-sm">
+          Sudah punya akun? <Link to="/login" className="text-blue-500">Login</Link>
+        </p>
       </div>
     </div>
   );

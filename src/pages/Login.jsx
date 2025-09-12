@@ -112,9 +112,17 @@ function Login() {
         href="https://t.me/AanzCuyxzzz"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-3 rounded-full shadow-lg hover:opacity-90 transition z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-[#0088cc] rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform z-50"
       >
-        💬 Contact CS
+        {/* Icon Telegram */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-7 h-7 text-white"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M9.999 15.2 9.9 19c.4 0 .6-.2.8-.4l2-1.9 4.1 3c.8.4 1.4.2 1.6-.7l3-13c.3-1.2-.4-1.7-1.2-1.4L2.7 9c-1.2.4-1.2 1.1-.2 1.4l4.7 1.5 10.9-6.9c.5-.3 1-.1.6.2l-8.7 8z" />
+        </svg>
       </a>
     </div>
   );

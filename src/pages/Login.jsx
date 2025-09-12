@@ -25,6 +25,16 @@ function Login() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-96">
+        {/* Pesan sambutan */}
+        <div className="mb-6 text-center">
+          <h1 className="text-xl font-semibold text-blue-600">
+            🚀 Selamat datang di <span className="font-bold">Hasilkan Cuanmu Sekarang!!</span>
+          </h1>
+          <p className="text-gray-500 text-sm mt-2">
+            Mulai perjalananmu untuk meraih cuan dengan mudah dan cepat 💰✨
+          </p>
+        </div>
+
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
         <input
           type="text"
@@ -47,7 +57,10 @@ function Login() {
           Login
         </button>
         <p className="text-center mt-4 text-sm">
-          Belum punya akun? <Link to="/register" className="text-blue-500">Daftar</Link>
+          Belum punya akun?{" "}
+          <Link to="/register" className="text-blue-500">
+            Daftar
+          </Link>
         </p>
       </div>
     </div>

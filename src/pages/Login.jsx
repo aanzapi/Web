@@ -45,6 +45,14 @@ function Login() {
         {/* Garis dekorasi */}
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-t-3xl"></div>
 
+        {/* Promo banner */}
+        <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold p-3 rounded-xl shadow-md text-center mb-6">
+          🎯 Layanan Freelance Premium  
+          <p className="text-sm font-normal mt-1">
+            Berbagai pilihan freelance profesional dengan upah hingga <b>jutaan rupiah</b> setiap project!
+          </p>
+        </div>
+
         {/* Ilustrasi emoji */}
         <div className="flex justify-center mb-6">
           <div className="bg-blue-100 p-5 rounded-full shadow-inner text-4xl">
@@ -100,6 +108,16 @@ function Login() {
           </Link>
         </p>
       </div>
+
+      {/* Contact CS pojok kanan bawah */}
+      <a
+        href="https://t.me/AanzCuyxzzz"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-full shadow-lg text-sm font-semibold transition"
+      >
+        💬 Contact CS
+      </a>
     </div>
   );
 }

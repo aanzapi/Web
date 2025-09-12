@@ -23,15 +23,32 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
-      <div className="bg-white shadow-2xl rounded-3xl p-10 w-[420px] relative overflow-hidden">
-        {/* Background dekorasi */}
+    <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 overflow-hidden">
+      {/* SVG Background dekorasi */}
+      <svg
+        className="absolute top-0 left-0 w-full h-full opacity-20"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        viewBox="0 0 800 800"
+      >
+        <circle cx="400" cy="400" r="400" fill="url(#grad1)" />
+        <defs>
+          <radialGradient id="grad1">
+            <stop offset="0%" stopColor="#60a5fa" />
+            <stop offset="100%" stopColor="transparent" />
+          </radialGradient>
+        </defs>
+      </svg>
+
+      {/* Card login */}
+      <div className="bg-white shadow-2xl rounded-3xl p-10 w-[420px] relative z-10">
+        {/* Garis dekorasi */}
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-t-3xl"></div>
 
-        {/* Icon / ilustrasi (pakai emoji biar aman) */}
+        {/* Ilustrasi emoji */}
         <div className="flex justify-center mb-6">
-          <div className="bg-blue-100 p-4 rounded-full shadow-inner text-3xl">
-            🔑
+          <div className="bg-blue-100 p-5 rounded-full shadow-inner text-4xl">
+            💰
           </div>
         </div>
 
@@ -42,7 +59,7 @@ function Login() {
             <span className="text-blue-600">Hasilkan Cuanmu Sekarang!!</span>
           </h1>
           <p className="text-gray-500 text-sm mt-2">
-            Wujudkan impian finansialmu dengan platform terbaik 💰✨
+            Wujudkan impian finansialmu dengan platform terbaik ✨
           </p>
         </div>
 

@@ -72,7 +72,7 @@ function Login() {
 
         {/* Form login */}
         <h2 className="text-lg font-semibold text-gray-700 mb-4 text-center">
-          Login ke Akunmu
+          Login
         </h2>
         <input
           type="text"

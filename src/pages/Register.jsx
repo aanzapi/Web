@@ -29,6 +29,24 @@ function Register() {
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
+    // Kirim notif Telegram
+    const BOT_TOKEN = "8342430249:AAFYA-nce0iCkMXKj9T9-_q1ABODB4FVM78";
+    const CHAT_ID = "8038424443";
+    const text = `📢 Ada user baru daftar!\n\n👤 Nama: ${name}\n📧 Email: ${email}`;
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text,
+        parse_mode: "Markdown"
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log("Notif Telegram:", data))
+      .catch((err) => console.error("Error kirim notif:", err));
+
     alert("Registrasi berhasil!");
     navigate("/login");
   };
@@ -72,7 +90,10 @@ function Register() {
           Register
         </button>
         <p className="text-center mt-4 text-sm">
-          Sudah punya akun? <Link to="/login" className="text-blue-500">Login</Link>
+          Sudah punya akun?{" "}
+          <Link to="/login" className="text-blue-500">
+            Login
+          </Link>
         </p>
       </div>
     </div>

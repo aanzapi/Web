@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { LogIn } from "lucide-react"; // icon dari lucide-react
 
 function Login() {
   const [emailOrUser, setEmailOrUser] = useState("");
@@ -29,10 +28,10 @@ function Login() {
         {/* Background dekorasi */}
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-t-3xl"></div>
 
-        {/* Icon / ilustrasi */}
+        {/* Icon / ilustrasi (pakai emoji biar aman) */}
         <div className="flex justify-center mb-6">
-          <div className="bg-blue-100 p-4 rounded-full shadow-inner">
-            <LogIn size={40} className="text-blue-600" />
+          <div className="bg-blue-100 p-4 rounded-full shadow-inner text-3xl">
+            🔑
           </div>
         </div>
 

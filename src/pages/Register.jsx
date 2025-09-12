@@ -100,11 +100,11 @@ function Register() {
 
         {/* Tombol Register */}
         <button
-          onClick={handleRegister}
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-xl transition duration-200"
-        >
-          Register
-        </button>
+  onClick={handleRegister}
+  className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 text-white py-3 rounded-xl font-semibold shadow-md transition"
+>
+  Register
+</button>
 
         {/* Link ke Login */}
         <p className="text-center mt-4 text-sm text-gray-600">

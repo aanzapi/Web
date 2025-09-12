@@ -45,30 +45,26 @@ function Login() {
         {/* Garis dekorasi */}
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-t-3xl"></div>
 
-        {/* Promo info */}
-        <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold p-4 rounded-xl shadow-md text-center mb-6">
-          🎯 Layanan Freelance Premium  
-          <p className="text-sm font-normal mt-1">
-            Pilih berbagai freelancer profesional dengan upah hingga{" "}
-            <b>jutaan rupiah</b> per project!
-          </p>
-        </div>
-
-        {/* Ilustrasi emoji */}
+        {/* Logo */}
         <div className="flex justify-center mb-6">
-          <div className="bg-blue-100 p-5 rounded-full shadow-inner text-4xl">
-            💰
-          </div>
+          <img
+            src="https://avatars.githubusercontent.com/u/198349497?v=4"
+            alt="Logo"
+            className="w-20 h-20 rounded-full shadow-md border-4 border-blue-200"
+          />
         </div>
 
-        {/* Pesan sambutan */}
-        <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-gray-800">
-            🚀 Selamat datang di{" "}
-            <span className="text-blue-600">Hasilkan Cuanmu Sekarang!!</span>
+        {/* Informasi Freelance */}
+        <div className="text-center mb-6">
+          <h1 className="text-xl font-bold text-gray-800">
+            🎯 Layanan Freelance Premium
           </h1>
-          <p className="text-gray-500 text-sm mt-2">
-            Wujudkan impian finansialmu dengan platform terbaik ✨
+          <p className="text-gray-600 text-sm mt-2">
+            Pilih berbagai freelancer profesional dengan upah hingga{" "}
+            <span className="font-semibold text-indigo-600">
+              jutaan rupiah
+            </span>{" "}
+            per project!
           </p>
         </div>
 
@@ -99,27 +95,27 @@ function Login() {
           Login
         </button>
 
-        {/* Footer bawah card */}
-        <div className="flex justify-between items-center mt-6 text-sm text-gray-600">
-          <p>
-            Belum punya akun?{" "}
-            <Link
-              to="/register"
-              className="text-blue-600 font-semibold hover:underline"
-            >
-              Daftar
-            </Link>
-          </p>
-          <a
-            href="https://t.me/AanzCuyxzzz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-4 text-indigo-600 font-semibold hover:underline"
+        {/* Link daftar */}
+        <p className="text-center mt-6 text-sm text-gray-600">
+          Belum punya akun?{" "}
+          <Link
+            to="/register"
+            className="text-blue-600 font-semibold hover:underline"
           >
-            💬 Contact CS
-          </a>
-        </div>
+            Daftar
+          </Link>
+        </p>
       </div>
+
+      {/* Tombol Contact CS (pojok kanan bawah) */}
+      <a
+        href="https://t.me/AanzCuyxzzz"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-3 rounded-full shadow-lg hover:opacity-90 transition z-50"
+      >
+        💬 Contact CS
+      </a>
     </div>
   );
 }

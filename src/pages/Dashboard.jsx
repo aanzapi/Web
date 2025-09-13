@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
@@ -6,6 +6,32 @@ function Dashboard() {
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [tab, setTab] = useState("home");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // State untuk pesan maintenance
+  const [showMaintenance, setShowMaintenance] = useState(true);
+
+  // State untuk game Cak Lontong
+  const [question, setQuestion] = useState(null);
+  const [answer, setAnswer] = useState("");
+  const [feedback, setFeedback] = useState("");
+
+  const fetchGame = async () => {
+    try {
+      const res = await fetch("https://api.sxtream.xyz/games/caklontong");
+      const data = await res.json();
+      setQuestion(data.result);
+      setFeedback("");
+      setAnswer("");
+    } catch (err) {
+      console.error("Gagal fetch game:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (!showMaintenance) {
+      fetchGame();
+    }
+  }, [showMaintenance]);
 
   const logout = () => {
     localStorage.removeItem("currentUser");
@@ -78,31 +104,70 @@ function Dashboard() {
 
         {/* Content */}
         {tab === "home" && (
-  <div className="flex flex-col items-center justify-center text-center py-10">
-    <h3 className="text-2xl font-bold mb-4">🎮 Mini Game: Tebak Angka</h3>
-    <p className="text-gray-600 mb-6">Tebak angka antara <b>1 sampai 10</b>!</p>
-    <input
-      type="number"
-      id="guess"
-      placeholder="Masukkan angka..."
-      className="border px-4 py-2 rounded-xl mb-4 text-center w-40"
-    />
-    <button
-      onClick={() => {
-        const answer = Math.floor(Math.random() * 10) + 1;
-        const guess = parseInt(document.getElementById("guess").value);
-        if (guess === answer) {
-          alert("🎉 Selamat! Tebakan kamu benar!");
-        } else {
-          alert(`❌ Salah, angka yang benar adalah ${answer}`);
-        }
-      }}
-      className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-xl"
-    >
-      Tebak!
-    </button>
-  </div>
-)}
+          <div className="flex flex-col items-center justify-center text-center py-10">
+            {showMaintenance ? (
+              <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-6 rounded-xl shadow-md relative max-w-xl">
+                <button
+                  onClick={() => setShowMaintenance(false)}
+                  className="absolute top-2 right-2 text-gray-600 hover:text-red-500 font-bold"
+                >
+                  ✖
+                </button>
+                <h3 className="text-xl font-bold mb-2">⚠️ Website Sedang Maintenance</h3>
+                <p className="text-gray-700">
+                  Silahkan login kembali nanti. Terima kasih atas pengertiannya 🙏
+                </p>
+              </div>
+            ) : (
+              <div className="bg-white shadow-xl rounded-2xl p-8 max-w-xl w-full">
+                <h3 className="text-2xl font-bold mb-4 text-blue-600">
+                  🎮 Game Cak Lontong
+                </h3>
+                {question ? (
+                  <div>
+                    <p className="mb-4 text-lg font-medium">{question.soal}</p>
+                    <input
+                      type="text"
+                      value={answer}
+                      onChange={(e) => setAnswer(e.target.value)}
+                      placeholder="Jawabanmu..."
+                      className="border px-4 py-2 rounded-xl mb-4 w-full text-center"
+                    />
+                    <button
+                      onClick={() => {
+                        if (
+                          answer.trim().toLowerCase() ===
+                          question.jawaban.toLowerCase()
+                        ) {
+                          setFeedback("🎉 Benar! Jawaban kamu tepat!");
+                        } else {
+                          setFeedback(
+                            `❌ Salah! Jawaban benar: ${question.jawaban}`
+                          );
+                        }
+                      }}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-xl w-full"
+                    >
+                      Submit
+                    </button>
+                    {feedback && (
+                      <p className="mt-4 text-lg font-semibold">{feedback}</p>
+                    )}
+                    <button
+                      onClick={fetchGame}
+                      className="mt-4 text-sm text-blue-500 hover:underline"
+                    >
+                      🔄 Main Lagi
+                    </button>
+                  </div>
+                ) : (
+                  <p className="text-gray-500">Loading game...</p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
         {tab === "profile" && (
           <div>
             <h3 className="text-xl font-semibold mb-4">Profil Saya</h3>

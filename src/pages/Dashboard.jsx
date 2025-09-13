@@ -5,6 +5,7 @@ function Dashboard() {
   const navigate = useNavigate();
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [tab, setTab] = useState("home");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("currentUser");
@@ -13,11 +14,22 @@ function Dashboard() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-64 bg-white shadow-xl flex flex-col p-6">
-        <h2 className="text-2xl font-bold mb-8 text-blue-600">Dashboard</h2>
+      {/* Sidebar (drawer) */}
+      <div
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl transform transition-transform duration-300 z-50
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        <div className="flex justify-between items-center p-6 border-b">
+          <h2 className="text-xl font-bold text-blue-600">Menu</h2>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="text-gray-600 hover:text-red-500 text-lg font-bold"
+          >
+            ✖
+          </button>
+        </div>
 
-        <nav className="flex flex-col gap-3 flex-grow">
+        <nav className="flex flex-col gap-3 p-6">
           {[
             { id: "home", label: "Home" },
             { id: "profile", label: "Profile" },
@@ -26,7 +38,10 @@ function Dashboard() {
           ].map((item) => (
             <button
               key={item.id}
-              onClick={() => setTab(item.id)}
+              onClick={() => {
+                setTab(item.id);
+                setSidebarOpen(false);
+              }}
               className={`text-left px-4 py-2 rounded-lg transition ${
                 tab === item.id
                   ? "bg-blue-500 text-white font-semibold"
@@ -38,16 +53,30 @@ function Dashboard() {
           ))}
         </nav>
 
-        <button
-          onClick={logout}
-          className="mt-6 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl"
-        >
-          Logout
-        </button>
+        <div className="p-6">
+          <button
+            onClick={logout}
+            className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl"
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 p-8">
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="text-2xl text-gray-700 hover:text-blue-600"
+          >
+            ☰
+          </button>
+          <h2 className="text-2xl font-bold">Dashboard</h2>
+        </div>
+
+        {/* Content */}
         {tab === "home" && (
           <div>
             <h3 className="text-xl font-semibold mb-4">Selamat Datang 🎉</h3>

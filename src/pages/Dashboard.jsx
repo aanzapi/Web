@@ -78,10 +78,15 @@ function Dashboard() {
 
         {/* Content */}
         {tab === "home" && (
-  <div className="flex flex-col items-center justify-center text-center py-12">
-    <div className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 text-white shadow-xl rounded-2xl p-8 max-w-md">
-      <h3 className="text-2xl font-bold mb-3">🚧 Website Sedang Maintenance</h3>
-      <p className="mb-6 text-sm">
+  <div className="relative flex flex-col items-center justify-center text-center py-16 min-h-[60vh] overflow-hidden">
+    {/* Ornamen blur background */}
+    <div className="absolute -top-10 -left-10 w-40 h-40 bg-yellow-300 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-pulse"></div>
+    <div className="absolute bottom-0 -right-10 w-40 h-40 bg-red-400 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-pulse"></div>
+
+    {/* Card Info */}
+    <div className="relative bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 text-white shadow-2xl rounded-2xl p-10 max-w-md z-10">
+      <h3 className="text-2xl font-bold mb-3 drop-shadow-md">🚧 Website Sedang Maintenance</h3>
+      <p className="mb-6 text-sm leading-relaxed drop-shadow-sm">
         Kami sedang meningkatkan sistem agar pengalamanmu lebih baik ✨<br />
         Silahkan login kembali nanti.
       </p>
@@ -89,7 +94,6 @@ function Dashboard() {
     </div>
   </div>
 )}
-
         {tab === "profile" && (
           <div>
             <h3 className="text-xl font-semibold mb-4">Profil Saya</h3>

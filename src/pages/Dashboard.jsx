@@ -78,13 +78,17 @@ function Dashboard() {
 
         {/* Content */}
         {tab === "home" && (
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Selamat Datang 🎉</h3>
-            <p className="text-gray-600">
-              Hai {currentUser?.name}, selamat datang di dashboardmu ✨
-            </p>
-          </div>
-        )}
+  <div className="flex flex-col items-center justify-center text-center py-12">
+    <div className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 text-white shadow-xl rounded-2xl p-8 max-w-md">
+      <h3 className="text-2xl font-bold mb-3">🚧 Website Sedang Maintenance</h3>
+      <p className="mb-6 text-sm">
+        Kami sedang meningkatkan sistem agar pengalamanmu lebih baik ✨<br />
+        Silahkan login kembali nanti.
+      </p>
+      <div className="animate-bounce text-4xl">⚠️</div>
+    </div>
+  </div>
+)}
 
         {tab === "profile" && (
           <div>
